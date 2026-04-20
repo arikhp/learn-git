@@ -2,24 +2,321 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Hello World</title>
+  <title>AeroBase</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    footer { margin-top: 40px; padding: 20px; text-align: center; }
-    footer a { margin: 0 12px; color: #333; font-size: 28px; text-decoration: none; }
-    footer a:hover { color: #0073e6; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #0a0e1a;
+      color: #c9d6e3;
+      font-family: 'Rajdhani', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Nav */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 48px;
+      border-bottom: 1px solid #1e2d45;
+      background: #070b14;
+    }
+    .logo {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #e8a020;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+    .logo span { color: #5ab4f5; }
+    nav .nav-links a {
+      color: #7a9ab5;
+      text-decoration: none;
+      margin-left: 28px;
+      font-size: 15px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    nav .nav-links a:hover { color: #e8a020; }
+
+    /* Hero */
+    .hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(90,180,245,0.07) 0%, transparent 70%),
+        repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(30,45,69,0.4) 60px),
+        repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(30,45,69,0.4) 60px);
+      pointer-events: none;
+    }
+    .tag {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 4px;
+      color: #e8a020;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: clamp(42px, 8vw, 80px);
+      font-weight: 700;
+      color: #f0f6ff;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+    .hero h1 span { color: #5ab4f5; }
+    .hero p {
+      margin-top: 16px;
+      font-size: 18px;
+      color: #7a9ab5;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .hero-divider {
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #e8a020, transparent);
+      margin: 28px auto;
+    }
+    .btn-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      padding: 12px 32px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-explode {
+      background: linear-gradient(135deg, #b84a00, #e8a020);
+      color: #fff;
+      box-shadow: 0 0 18px rgba(232,160,32,0.3);
+    }
+    .btn-explode:hover { box-shadow: 0 0 28px rgba(232,160,32,0.6); transform: translateY(-1px); }
+    .btn-login {
+      background: transparent;
+      color: #5ab4f5;
+      border: 1px solid #5ab4f5;
+    }
+    .btn-login:hover { background: rgba(90,180,245,0.1); transform: translateY(-1px); }
+
+    /* Stats bar */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      padding: 24px 48px;
+      border-top: 1px solid #1e2d45;
+      border-bottom: 1px solid #1e2d45;
+      background: #070b14;
+      flex-wrap: wrap;
+    }
+    .stat { text-align: center; }
+    .stat-value {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 26px;
+      color: #e8a020;
+    }
+    .stat-label {
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: #4a6a85;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    /* Footer */
+    footer {
+      padding: 24px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid #1e2d45;
+      background: #070b14;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-copy {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      color: #2e4a65;
+      letter-spacing: 2px;
+    }
+    .social-links a {
+      color: #2e4a65;
+      font-size: 18px;
+      margin-left: 18px;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .social-links a:hover { color: #5ab4f5; }
+
+    /* Modal */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(4,8,18,0.85);
+      backdrop-filter: blur(4px);
+      justify-content: center; align-items: center; z-index: 100;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal {
+      background: #0d1525;
+      border: 1px solid #1e2d45;
+      border-radius: 8px;
+      padding: 40px 36px;
+      width: 380px;
+      box-shadow: 0 0 60px rgba(0,0,0,0.6), 0 0 20px rgba(90,180,245,0.05);
+      position: relative;
+    }
+    .modal-header {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 4px;
+      color: #e8a020;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .modal h2 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #f0f6ff;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+    .modal label {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: #4a6a85;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .modal input {
+      width: 100%;
+      padding: 10px 14px;
+      margin-bottom: 20px;
+      background: #070b14;
+      border: 1px solid #1e2d45;
+      border-radius: 4px;
+      color: #c9d6e3;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 14px;
+    }
+    .modal input:focus { outline: none; border-color: #5ab4f5; }
+    .modal .btn-signin {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #0a4a8a, #5ab4f5);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .modal .btn-signin:hover { opacity: 0.85; }
+    .modal .close {
+      position: absolute; top: 14px; right: 18px;
+      font-size: 20px; cursor: pointer; color: #2e4a65;
+      background: none; border: none; transition: color 0.2s;
+    }
+    .modal .close:hover { color: #5ab4f5; }
   </style>
 </head>
 <body>
-  <h1>Hello World</h1>
-  <p>hello v2</p>
-  <button style="background-color: green; color: white; padding: 10px 20px; border: none; cursor: pointer;">Explode</button>
+
+  <nav>
+    <div class="logo">Aero<span>Base</span></div>
+    <div class="nav-links">
+      <a href="#">Fleet</a>
+      <a href="#">Routes</a>
+      <a href="#">Control</a>
+      <a href="#">Docs</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="tag">// Clearance Granted — Runway 27L</div>
+    <h1>Hello <span>World</span></h1>
+    <p>hello v2 &mdash; Altitude 35,000 ft</p>
+    <div class="hero-divider"></div>
+    <div class="btn-group">
+      <button class="btn btn-explode">Explode</button>
+      <button class="btn btn-login" onclick="document.getElementById('loginModal').classList.add('active')">Login</button>
+    </div>
+  </section>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-value">FL350</div>
+      <div class="stat-label">Cruise Altitude</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">M0.85</div>
+      <div class="stat-label">Mach Speed</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">247°</div>
+      <div class="stat-label">Heading</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">4.2H</div>
+      <div class="stat-label">ETA</div>
+    </div>
+  </div>
+
   <footer>
-    <a href="#"><i class="fab fa-twitter"></i></a>
-    <a href="#"><i class="fab fa-instagram"></i></a>
-    <a href="#"><i class="fab fa-github"></i></a>
-    <a href="#"><i class="fab fa-linkedin"></i></a>
-    <a href="#"><i class="fab fa-facebook"></i></a>
+    <div class="footer-copy">&copy; 2026 &mdash; AEROBASE SYSTEMS</div>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+      <a href="#"><i class="fab fa-facebook"></i></a>
+    </div>
   </footer>
+
+  <!-- Login Modal -->
+  <div class="modal-overlay" id="loginModal" onclick="if(event.target===this) this.classList.remove('active')">
+    <div class="modal">
+      <button class="close" onclick="document.getElementById('loginModal').classList.remove('active')">&times;</button>
+      <div class="modal-header">// Secure Access</div>
+      <h2>Login</h2>
+      <label>Email</label>
+      <input type="email" placeholder="pilot@aerobase.io">
+      <label>Password</label>
+      <input type="password" placeholder="••••••••">
+      <button class="btn-signin">Authenticate</button>
+    </div>
+  </div>
+
 </body>
 </html>
